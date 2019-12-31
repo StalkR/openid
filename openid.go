@@ -54,6 +54,7 @@ type Config struct {
 const callback = "/auth/callback"
 
 // New creates a new authentication module.
+// It registers a handler at /auth/callback for the provider.
 func New(ctx context.Context, config *Config) *Auth {
     provider, err := oidc.NewProvider(ctx, config.Provider)
     if err != nil {
