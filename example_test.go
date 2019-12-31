@@ -6,7 +6,7 @@ import (
         "net/http"
 )
 
-func ExampleAuth() {
+func ExampleNew() {
         ctx := context.Background()
         auth := openid.New(ctx, &openid.Config{
                 Provider: "https://accounts.google.com",
