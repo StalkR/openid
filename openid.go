@@ -125,7 +125,7 @@ func (s *Auth) handle(w http.ResponseWriter, r *http.Request) {
 let hash = window.location.hash.substr(1);
 let fragments = hash.split('&').reduce((fragments, e) => {
     let parts = e.split('=');
-    fragments[parts[0]] = parts[1];
+    fragments[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
     return fragments;
 }, {});
 let form = document.createElement('form');
