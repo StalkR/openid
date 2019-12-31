@@ -2,14 +2,15 @@
 Package openid implements OpenID Connect authentication.
 
 The package uses the ID Token flow, as it conveniently stores the
-user email address in the claims, so no further requests are required.
-A temporary nonce cookie is established at the beginning and verified at the
-end of the flow, protecting against login CSRF.
+user email in the claims, so no further exchange requests are required.
+A temporary nonce cookie (__Host-AuthNonce) is established at the beginning
+and verified at the end of the flow, protecting against login CSRF.
 As the ID token is returned to the redirect URI in the fragment, a small
 JavaScript is responsible for sending it to the server via POST.
-The ID token is then verified and stored as-is in a session cookie of 1 year.
-On future requests, the ID token is obtained and verified from the session
-cookie, and the user email can be extracted.
+The ID token is then verified and stored in a cookie (__Host-AuthToken) with
+an expiration of 1 year.
+On future requests, the ID token is obtained and verified from the cookie,
+and the user email can be extracted.
 Since the ID token expiration is typically only 1h, expiry is only verified
 during authentication and not in subsequent requests.
 The user email must be verified at the provider.
