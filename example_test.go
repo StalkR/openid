@@ -1,9 +1,11 @@
-package openid
+package openid_test
 
 import (
         "context"
         "fmt"
         "net/http"
+
+        "github.com/StalkR/openid"
 )
 
 func ExampleNew() {
