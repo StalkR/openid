@@ -63,11 +63,11 @@ func realm(uri string) string {
 }
 
 // Verify verifies the return URL after a login and returns the openid.claimed_id.
-func Verify(r *http.Request) (string, error) {
+func Verify(r *http.Request, endpoint string) (string, error) {
   if err := verifySignedFields(r); err != nil {
     return "", err
   }
-  if err := verifySignature(r); err != nil {
+  if err := verifySignature(r, endpoint); err != nil {
     return "", err
   }
   if err := verifyReturnTo(r); err != nil {
@@ -101,8 +101,11 @@ func verifySignedFields(r *http.Request) error {
   return nil
 }
 
-func verifySignature(r *http.Request) error {
+func verifySignature(r *http.Request, endpoint string) error {
   v := r.URL.Query()
+  if got := v.Get("openid.op_endpoint"); got != endpoint {
+    return fmt.Errorf("unexpected endpoint: %v", got)
+  }
   params := url.Values{}
   params.Add("openid.mode", "check_authentication")
   for k, vs := range v {

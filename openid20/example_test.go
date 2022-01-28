@@ -14,7 +14,7 @@ func ExampleNew() {
                 http.Redirect(w, r, openid20.RedirectURL(endpoint, returnTo), http.StatusSeeOther)
         })
         http.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
-                user, err := openid20.Verify(r)
+                user, err := openid20.Verify(r, endpoint)
                 if err != nil {
                         http.Error(w, err.Error(), http.StatusForbidden)
                         return
