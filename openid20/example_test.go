@@ -7,7 +7,7 @@ import (
         "github.com/StalkR/openid/openid20"
 )
 
-func ExampleNew() {
+func ExampleVerify() {
         const endpoint = "https://steamcommunity.com/openid/login"
         const returnTo = "https://example.com/auth"
         http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
